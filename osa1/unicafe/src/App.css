@@ -1,0 +1,28 @@
+body{
+  background-color: #121212;
+  margin: 0px
+}
+
+p, h1 {
+  background-color: #222222;
+  color: #E0E0E0;
+  font-size: larger;
+  padding-top: 25px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  width: 50%;
+}
+
+button {
+  background-color: #222222;
+  color: #E0E0E0;
+  font-size: larger;
+  padding-top: 25px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  width: 20%;
+}
