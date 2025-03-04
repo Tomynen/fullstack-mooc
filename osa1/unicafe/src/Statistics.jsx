@@ -11,10 +11,14 @@ const Statistics = ({good, neutral, bad, all, positive, average}) => {
     }
     return(
         <table>
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Value</th>
             </tr>
+            </thead>
+            
+            <tbody>
             <Statistic name="Good" votes={good} />
             <Statistic name="Neutral" votes={neutral} />
             <Statistic name="Bad" votes={bad} />
@@ -22,6 +26,8 @@ const Statistics = ({good, neutral, bad, all, positive, average}) => {
 
             <Statistic name="Average" votes={average} />
             <Statistic name="Positive" votes={positive} />
+            </tbody>
+            
         </table>    
     )
 }
