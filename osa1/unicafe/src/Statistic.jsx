@@ -1,7 +1,10 @@
 const Statistic = ({name, votes}) => {
 
     return(
-        <p>{name}: {votes}</p>
+        <tr>
+            <td>{name}</td>
+            <td>{votes}</td>
+        </tr>
     )
 }
 
