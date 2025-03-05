@@ -13,8 +13,32 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState([])
+  const [votes, setVotes] = useState(Array(7).fill(0))
+  const [mostVoted, setMostVoted] = useState("None")
 
+  const vote = () => {
+    const newVotes = [...votes]
+    console.log("Votes before: ",votes)
+    newVotes[selected] = newVotes[selected] + 1
+    setVotes(newVotes)
+    calculateMostVoteda()
+
+  }
+
+  function calculateMostVoteda(){
+    const maxVotes = Math.max(...votes)
+    const maxIndex = votes.indexOf(maxVotes)
+
+    setMostVoted(anecdotes[maxIndex])
+  }
+
+  const next = () => {
+    const newSelected = selected + 1
+    if(newSelected > votes.length - 1){
+      const newSelected = 0
+    }
+    setSelected(newSelected)
+  }
 
   const arvoAnekdootti = () => {
     const arvottu = Math.floor(Math.random() * anecdotes.length)
@@ -24,7 +48,13 @@ const App = () => {
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <button onClick={vote}>Vote</button>
+      <button onClick={next}>Next</button>
+      <br />
       <button onClick={arvoAnekdootti}>Arvo anekdootti</button>
+      <br />
+      <h1>Anecdote with most votes</h1>
+      <p>{mostVoted}</p>
     </div>
   )
 }
