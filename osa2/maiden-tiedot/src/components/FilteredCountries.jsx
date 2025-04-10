@@ -3,7 +3,7 @@ const FilteredCountries = ({countries}) => {
         return(
             <p>Too many countries {countries.length} with the filter add more search text</p>
         )
-    }else if(!countries || countries.length == 0)
+    }else if(countries.length < 2)
     {
         return null
     }
@@ -11,7 +11,15 @@ const FilteredCountries = ({countries}) => {
         return(
             <>
                 <ul>
-                    {countries.map(c => <li key={c.name.common}>{c.name.common}</li>)}
+                    {countries.map(c => {
+                        return(
+                            <>
+                                <li key={c.name.common}>{c.name.common}</li>
+                                <button onClick={}>Show</button>
+                            </>
+                            
+                        )
+                    })}
                 </ul>
             </>
         )
