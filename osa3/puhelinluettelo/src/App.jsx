@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Persons from './Persons'
-import Filter from './Filter'
-import PersonForm from './PersonForm'
+import Persons from './components/Persons'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 import PersonService from './services/persons'
+//import './App.css'
+import SuccessNotification from './components/SuccessNotification'
 
 const App = () => {
 
@@ -13,6 +15,8 @@ const App = () => {
   const [newPhoneNumber, setNewPhoneNumber] = useState('')
   const [filterValue, setFilterValue] = useState('')
 
+  const [successMessage, setSuccessMessage] = useState(null)
+
   useEffect(() => {
     PersonService.getAll()
     .then(response => setPersons(response))
@@ -20,9 +24,18 @@ const App = () => {
   ,[])
 
   const deletePersonHandler = (id) => {
+    const personToBeDeleted = persons.find(p => p.id == id)
+
     const requ = PersonService.deletePerson(id)
+
+    setSuccessMessage(`Deleted a note ${personToBeDeleted.name}`)
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000)
+
     const updatedPersons = persons.filter(person => person.id !== id) 
     setPersons(updatedPersons)
+    
   }
 
   const newNameHandler = (event) => {
@@ -50,6 +63,18 @@ const App = () => {
             const updatedPersons = persons.filter(person => person.id !== response.id).concat(updatedPerson)
             setPersons(updatedPersons)
           })
+          .then( response => {
+            setSuccessMessage(`Updated person with the name ${updatedPerson.name}`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 4000);
+          })
+          .catch(error => {
+            setSuccessMessage(`${updatedPerson.name} has already been deleted`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 4000);
+          })
         setNewName('')
         setNewPhoneNumber('')
       }
@@ -60,6 +85,7 @@ const App = () => {
         .then(response => {
           const updatedPersons = persons.concat(response)
           setPersons(updatedPersons)
+          setSuccessMessage(`Added ${person.name}`)
         })
     }
     setNewName('')
@@ -68,6 +94,7 @@ const App = () => {
 
   return (
     <div>
+      <SuccessNotification message={successMessage}/>  
       <h2>Phonebook</h2>
       <form onSubmit={handleSubmit}>
         <div>
