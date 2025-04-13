@@ -10,6 +10,11 @@ function App() {
   const [filteredCountries, setFilteredCountries] = useState([])
   const [selectedCountry, setSelectedCountry] = useState(null)
 
+  const countryClickHandler = (name) => {
+    console.log("country cliced with name! "+name)
+    setFilterValue(name.toLowerCase())
+  }
+
   useEffect(() => {
     axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
       .then(response => {
@@ -41,7 +46,7 @@ function App() {
     <>
       <Filter onChange={onChangeFilter} value={filterValue}/>
       <SelectedCountry country={selectedCountry} /> 
-      <FilteredCountries countries={filteredCountries}/>    
+      <FilteredCountries countries={filteredCountries} countryClickHandler={countryClickHandler}/>    
     </>
   )
 }

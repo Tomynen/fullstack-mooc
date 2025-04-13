@@ -1,4 +1,30 @@
+import { fetchWeatherApi } from "openmeteo"
+import { useEffect } from "react";
+
 const SelectedCountry = ({country}) => {
+
+    useEffect(() => {
+
+        console.log("helou from useEffect selectedCountry")
+        const fetchData = async () => {
+            if(country){
+                const params = {
+                    "latitude": country.latlng[0],
+                    "longitude": country.latlng[1],
+                    "hourly": "temperature_2m"
+                };
+            
+                const url = "https://api.open-meteo.com/v1/forecast"
+                const responses = await fetchWeatherApi(url, params)
+                console.log(responses[0])
+            }
+        } 
+        fetchData()
+
+
+    },[country]) 
+
+    
 
     if(country === null){
         return null
